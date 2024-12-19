@@ -8,7 +8,6 @@
     { "id":  1003, "score": 500, "scorePerSecond": 4 },
     { "id":  1004, "score": 700, "scorePerSecond": 5 },
     { "id":  1005, "score": 1000, "scorePerSecond": 6 },
-    { "id":  1006, "score": 3000, "scorePerSecond": 10 },
-    { "id":  1007, "score": 999999, "scorePerSecond": 10 }
+    { "id":  1006, "score": 3000, "scorePerSecond": 10 }
   ]
 }

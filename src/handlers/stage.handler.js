@@ -3,8 +3,7 @@ import { getGameAssets } from '../init/assets.js';
 
 export const moveStageHandler = (userId, payload) => {
   // 유저의 현재 스테이지 배열을 가져오고, 최대 스테이지 ID를 찾는다.
-  // getStage를 이용해서 currentStages배열을 받아온다. 클라이언트에서 받아와야하는듯, 배열을 못받아오면 리턴
-  const { stages } = getGameAssets();
+  const { stages } = getGameAssets(); //현재 스테이지 배열
   let currentStages = getStage(userId);
   if (!currentStages.length) {
     return { status: 'fail', message: 'No stages found for user' };

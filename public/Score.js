@@ -16,7 +16,7 @@ class Score {
     this.nextStageScore = 100; //다음 스테이지 필요 점수
   }
 
-
+  
   update(deltaTime) {
     this.score += deltaTime * 0.001 * this.scorePerStage; //기존 score상승에 현재 스코어 상승량 곱해주기
     if (Math.floor(this.score) >= this.nextStageScore && this.stageChange) { //스코어 다음 스테이지 요구 조건 달성시 다음 스테이지 
@@ -67,23 +67,23 @@ class Score {
 
   getItem(itemId) {
     // 아이템 획득시 점수 변화
-    if(itemId === 1) {
-      this.score += 10
-    } else if(itemId === 2) {
-      this.score += 20
-    } else if(itemId === 3) {
-      this.score += 30
-    } else if(itemId === 4) {
-      this.score += 40
-    } else if(itemId === 5) {
-      this.score += 50
-    } else if(itemId === 6) {
-      this.score += 60
-    }
-    // sendEvent(11, { //현재스테이지, 다음 스테이지 정보 서버로 전송
-    //   currentStage: this.currentStage,
-    //   targetStage: targetStage
-    // });
+    // if(itemId === 1) {
+    //   this.score += 10;
+    // } else if(itemId === 2) {
+    //   this.score += 20;
+    // } else if(itemId === 3) {
+    //   this.score += 30;
+    // } else if(itemId === 4) {
+    //   this.score += 40;
+    // } else if(itemId === 5) {
+    //   this.score += 50;
+    // } else if(itemId === 6) {
+    //   this.score += 60;
+    // }
+    this.score += gameAssetsData.items.data[itemId-1].score;
+    sendEvent(12, { // 아이템 획득 정보 서버로 전송
+      itemId: itemId
+    });
   }
 
   reset() {

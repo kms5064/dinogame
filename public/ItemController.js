@@ -1,4 +1,5 @@
 import Item from "./Item.js";
+// import { stages } from "./Score.js";
 
 class ItemController {
 
@@ -30,8 +31,8 @@ class ItemController {
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
 
-    createItem() {
-        const index = this.getRandomNumber(0, this.itemImages.length - 1);
+    createItem(stage) {
+        const index = this.getRandomNumber(0, stage);
         const itemInfo = this.itemImages[index];
         const x = this.canvas.width * 1.5;
         const y = this.getRandomNumber(
@@ -53,9 +54,9 @@ class ItemController {
     }
 
 
-    update(gameSpeed, deltaTime) {
+    update(gameSpeed, deltaTime, stage) {
         if(this.nextInterval <= 0) {
-            this.createItem();
+            this.createItem(stage);
             this.setNextItemTime();
         }
 
