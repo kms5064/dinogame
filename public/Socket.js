@@ -16,6 +16,12 @@ socket.on('connection', (data) => {
   userId = data.uuid;
 });
 
+// 소켓으로 assets파일 받아오기 여기 데이터 조회해서 프론트에서 assets파일 사용
+let gameAssetsData = null; 
+socket.on('gameAssets', (data) => {
+  gameAssetsData = data;
+});
+
 const sendEvent = (handlerId, payload) => {
   socket.emit('event', {
     userId,
@@ -25,7 +31,12 @@ const sendEvent = (handlerId, payload) => {
   });
 };
 
-export { sendEvent };
+socket.on('highScore', (data) => {
+  console.log('서버에서 받은 하이스코어:', data.highScore);
+  localStorage.setItem('highScore', data.highScore); // 로컬 스토리지에 저장
+});
+
+export { sendEvent, gameAssetsData, socket};
 
 
-//반대로 여기서는 프론트에 소켓을 만들어줌
+//여기서는 프론트에 소켓을 만들어줌
