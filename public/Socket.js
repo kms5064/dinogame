@@ -31,7 +31,12 @@ const sendEvent = (handlerId, payload) => {
   });
 };
 
-export { sendEvent, gameAssetsData };
+socket.on('highScore', (data) => {
+  console.log('서버에서 받은 하이스코어:', data.highScore);
+  localStorage.setItem('highScore', data.highScore); // 로컬 스토리지에 저장
+});
+
+export { sendEvent, gameAssetsData, socket};
 
 
-//반대로 여기서는 프론트에 소켓을 만들어줌
+//여기서는 프론트에 소켓을 만들어줌

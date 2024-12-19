@@ -16,7 +16,6 @@ class Score {
     this.nextStageScore = 100; //다음 스테이지 필요 점수
   }
 
-  
   update(deltaTime) {
     this.score += deltaTime * 0.001 * this.scorePerStage; //기존 score상승에 현재 스코어 상승량 곱해주기
     if (Math.floor(this.score) >= this.nextStageScore && this.stageChange) { //스코어 다음 스테이지 요구 조건 달성시 다음 스테이지 
@@ -31,10 +30,11 @@ class Score {
       });
        //서버에서 검증이 완료되면
       this.currentStage += 1; //증가한 스테이지로 currentStage증가 
-      this.stageChange = true;
+      this.stageChange = true; //다시 true
     }
   }
-  // update(deltaTime) {
+  // ai는 믿을게 못됩니다!
+  // update(deltaTime) { 
   //   if (!this.stages && gameAssetsData) {
   //     this.stages = gameAssetsData.stages;
   //   }
@@ -66,7 +66,7 @@ class Score {
   // }
 
   getItem(itemId) {
-    // 아이템 획득시 점수 변화
+    // 아이템 획득시 점수 변화 하드코딩ver.
     // if(itemId === 1) {
     //   this.score += 10;
     // } else if(itemId === 2) {
@@ -82,7 +82,8 @@ class Score {
     // }
     this.score += gameAssetsData.items.data[itemId-1].score;
     sendEvent(12, { // 아이템 획득 정보 서버로 전송
-      itemId: itemId
+      itemId: itemId,
+      currentStage: this.currentStage
     });
   }
 
@@ -94,6 +95,9 @@ class Score {
     const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
     if (this.score > highScore) {
       localStorage.setItem(this.HIGH_SCORE_KEY, Math.floor(this.score));
+      sendEvent(13, { // 하이스코어 서버로 전송
+        highScore: Math.floor(this.score)
+      });
     }
   }
 
@@ -102,9 +106,7 @@ class Score {
   }
 
   draw() {
-    const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
     const y = 20 * this.scaleRatio;
-
     const fontSize = 20 * this.scaleRatio;
     this.ctx.font = `${fontSize}px serif`;
     this.ctx.fillStyle = '#525250';
@@ -114,6 +116,7 @@ class Score {
     const highScoreX = scoreX - 125 * this.scaleRatio;
 
     const scorePadded = Math.floor(this.score).toString().padStart(6, 0);
+    const highScore = Number(localStorage.getItem(this.HIGH_SCORE_KEY));
     const highScorePadded = highScore.toString().padStart(6, 0);
     const stagePadded = Math.floor(this.stages + 1).toString().padStart(3, 0);
 
