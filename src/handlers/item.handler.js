@@ -7,7 +7,7 @@ export const itemGetHandler = (userId, payload) => {
   if (!item) {
     return { status: 'fail', message: 'Invalid item ID' };
   }
-  const itemStage = payload.currentStage;
+  const itemStage = payload.currentStage-1000+1;
   if(itemStage > item.id) {
     return { status: 'fail', message: 'Invalid item ID' };
   }
