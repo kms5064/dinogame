@@ -7,8 +7,10 @@ export const itemGetHandler = (userId, payload) => {
   if (!item) {
     return { status: 'fail', message: 'Invalid item ID' };
   }
-  const itemStage = payload.currentStage;
-  if(itemStage > item.id)
+  const itemStage = payload.currentStage-1000+1;
+  if(itemStage > item.id){
+    return { status: 'fail', message: 'Invalid item ID' };
+  }
 
   // 검증 완료 코드!
   return { status: 'success', message: 'Item verified', itemId: item.id };
